@@ -3,15 +3,23 @@ import ChatContext from "./chat-context.js";
 
 const initialChatState = {
   chats: [],
+  isSubmittingMsg: false,
   currentChat: { chatTitle: "New chat", messages: [] },
 };
 
 const chatReducer = (state, action) => {
+  if (action.type === "SET_SUB_MSG") {
+    return {
+      ...state,
+      isSubmittingMsg: action.payload
+    }
+  }
+
   if (action.type === "NEW_MSG") {
     const existingChat = state.currentChat?.id;
 
     if (!existingChat) {
-      const chatTitle = action.payload.chatTitle;
+      const chatTitle = action.payload.chatTitle.replace(/"/g, '');
       const chatId = action.payload.id;
 
       const newCurrentChat = {
@@ -78,6 +86,10 @@ export const ChatProvider = (props) => {
     dispatch({ type: "NEW_MSG", payload: data });
   };
 
+  const setIsSubmittingMsg = (isSubmittingMsg) => {
+    dispatch({ type: "SET_SUB_MSG", payload: isSubmittingMsg });
+  };
+
   const setCurrentChat = (chatId) => {
     dispatch({ type: "SET_CURRENT_CHAT", payload: chatId });
   };
@@ -85,8 +97,10 @@ export const ChatProvider = (props) => {
   const chatContext = {
     chats: state.chats,
     currentChat: state.currentChat,
+    isSubmittingMsg: state.isSubmittingMsg,
     newMessage,
     setCurrentChat,
+    setIsSubmittingMsg
   };
 
   return (

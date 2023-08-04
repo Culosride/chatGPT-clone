@@ -6,7 +6,8 @@ import ChatContext from "../store/chat-context";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Chat = () => {
-  const { chats, currentChat, newMessage } = useContext(ChatContext);
+  const { currentChat, newMessage, setIsSubmittingMsg, isSubmittingMsg } =
+    useContext(ChatContext);
   const [userInput, setUserInput] = useState("");
 
   const msgValidation = userInput.split(" ").join("").length > 0;
@@ -23,25 +24,29 @@ const Chat = () => {
     }
 
     try {
-      const result = await fetch(`${BASE_URL}/openai/completion`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ msg: userInput }),
-      });
+      if (!isSubmittingMsg) {
+        setIsSubmittingMsg(true);
+        const result = await fetch(`${BASE_URL}/openai/completion`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ msg: userInput }),
+        });
 
-      const data = await result.json();
+        const data = await result.json();
 
-      newMessage({
-        userInput,
-        newMessage: data.message,
-        chatTitle: data.chatTitle,
-        id: data.id,
-      });
+        newMessage({
+          userInput,
+          newMessage: data.message,
+          chatTitle: data.chatTitle,
+          id: data.id,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
+    setIsSubmittingMsg(false);
     setUserInput("");
   };
 

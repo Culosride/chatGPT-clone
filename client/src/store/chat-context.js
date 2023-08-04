@@ -3,9 +3,8 @@ import React from "react";
 const initialState = {
   chats: [],
   currentChat: {},
+  isSubmittingMsg: false,
   newMessage: () => {},
-  newChat: () => {},
-  deleteChat: () => {},
 };
 
 const ChatContext = React.createContext(initialState);
