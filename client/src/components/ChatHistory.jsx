@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import Button from "./Button";
 import classes from "./chatHistory.module.css";
 import { BsChatRightDots } from "react-icons/bs";
+import ChatContext from "../store/chat-context";
 
 const DUMMY_CHATS = [
   { text: "This is a first chat" },
@@ -10,6 +12,8 @@ const DUMMY_CHATS = [
 ];
 
 const ChatsHistory = () => {
+  const { chats, currentChat } = useContext(ChatContext);
+
   return (
     <div className={classes["history-container"]}>
       <Button title="+ New chat" type="button" styles={"btn chat-panel"} />
@@ -17,8 +21,9 @@ const ChatsHistory = () => {
         {DUMMY_CHATS.map((conv, index) => (
           <div className={classes["chat-container"]} key={index}>
             <BsChatRightDots />
-            <div className={classes.chat}>{conv.text}
-            <div className={classes["text-fade"]}></div>
+            <div className={classes.chat}>
+              {conv.text}
+              <div className={classes["text-fade"]}></div>
             </div>
           </div>
         ))}

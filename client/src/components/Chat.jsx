@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./chat.module.css";
 import InputForm from "./InputForm";
+import ChatContext from "../store/chat-context";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Chat = () => {
-  const [msg, setMsg] = useState("");
-  const [chat, setChat] = useState([]);
-  const msgValidation = msg.split(" ").join("").length > 0;
+  const { chats, currentChat, newMessage } = useContext(ChatContext);
+  const [userInput, setUserInput] = useState("");
+
+  const msgValidation = userInput.split(" ").join("").length > 0;
 
   const handleChange = (e) => {
-    setMsg(e.target.value);
+    setUserInput(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -26,29 +28,27 @@ const Chat = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ msg: msg }),
+        body: JSON.stringify({ msg: userInput }),
       });
 
       const data = await result.json();
-      setChat((prev) => [
-        ...prev,
-        {
-          role: "user",
-          content: msg,
-        },
-        data.message,
-      ]);
+
+      newMessage({
+        userInput,
+        newMessage: data.message,
+        chatTitle: data.chatTitle,
+      });
     } catch (error) {
       console.log(error);
     }
-    setMsg("");
+    setUserInput("");
   };
 
   return (
     <section className={classes["chat-container"]}>
-      <div className={classes.banner}>Chat title</div>
+      <div className={classes.banner}>{currentChat.chatTitle}</div>
       <div className={classes["messages-container"]}>
-        {chat.map((message, index) => (
+        {currentChat.messages.map((message, index) => (
           <div
             key={index}
             className={`${classes["chat-message"]} ${
@@ -62,7 +62,7 @@ const Chat = () => {
       <InputForm
         inputIsValid={msgValidation}
         handleSubmit={handleSubmit}
-        msg={msg}
+        msg={userInput}
         handleChange={handleChange}
       />
     </section>

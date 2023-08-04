@@ -1,9 +1,12 @@
-import Main from "./components/Main"
+import Main from "./components/Main";
+import { ChatProvider } from "./store/CartProvider";
 
 const App = () => {
   return (
-    <Main />
-  )
-}
+    <ChatProvider>
+      <Main />
+    </ChatProvider>
+  );
+};
 
-export default App
+export default App;
