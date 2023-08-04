@@ -1,8 +1,7 @@
 import classes from "./inputForm.module.css";
 import Button from "./Button";
 
-const InputForm = ({ handleChange, handleSubmit, msg }) => {
-  const msgValidation = msg.split(" ").join("").length > 0;
+const InputForm = ({ handleChange, handleSubmit, msg, inputIsValid }) => {
 
   return (
     <form
@@ -19,7 +18,7 @@ const InputForm = ({ handleChange, handleSubmit, msg }) => {
         onFocus={(e) => (e.target.placeholder = "")}
         onBlur={(e) => (e.target.placeholder = "Let's chat")}
       />
-      {msgValidation && (
+      {inputIsValid && (
         <Button title="&gt;" type="submit" styles={"btn user-input"} />
       )}
     </form>

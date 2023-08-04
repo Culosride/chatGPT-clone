@@ -7,6 +7,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Chat = () => {
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
+  const msgValidation = msg.split(" ").join("").length > 0;
 
   const handleChange = (e) => {
     setMsg(e.target.value);
@@ -14,6 +15,10 @@ const Chat = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!msgValidation) {
+      return;
+    }
 
     try {
       const result = await fetch(`${BASE_URL}/openai/completion`, {
@@ -55,6 +60,7 @@ const Chat = () => {
         ))}
       </div>
       <InputForm
+        inputIsValid={msgValidation}
         handleSubmit={handleSubmit}
         msg={msg}
         handleChange={handleChange}
