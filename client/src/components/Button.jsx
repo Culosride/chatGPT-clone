@@ -1,10 +1,10 @@
 import classes from "./button.module.css";
 
-const Button = ({ title, styles, type }) => {
+const Button = ({ title, styles, type, onClick }) => {
   const btnStyles = styles.split(" ").map(className => classes[className]).join(" ");
 
   return (
-    <button className={btnStyles} type={type}>
+    <button onClick={onClick} className={btnStyles} type={type}>
       {title}
     </button>
   );

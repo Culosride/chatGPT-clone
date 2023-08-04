@@ -1,5 +1,5 @@
 import Main from "./components/Main";
-import { ChatProvider } from "./store/CartProvider";
+import { ChatProvider } from "./store/ChatProvider";
 
 const App = () => {
   return (

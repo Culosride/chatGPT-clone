@@ -37,6 +37,7 @@ const Chat = () => {
         userInput,
         newMessage: data.message,
         chatTitle: data.chatTitle,
+        id: data.id,
       });
     } catch (error) {
       console.log(error);

@@ -4,25 +4,27 @@ import classes from "./chatHistory.module.css";
 import { BsChatRightDots } from "react-icons/bs";
 import ChatContext from "../store/chat-context";
 
-const DUMMY_CHATS = [
-  { text: "This is a first chat" },
-  { text: "This is a second chat blablaclblasdasdsadkd" },
-  { text: "This is a Lore ipsum asdasd" },
-  { text: "Lore ipsum asdasd" },
-];
 
 const ChatsHistory = () => {
-  const { chats, currentChat } = useContext(ChatContext);
+  const { chats, currentChat, setCurrentChat } = useContext(ChatContext);
+
+  const navigateToChat = (e, id) => {
+    setCurrentChat(id)
+  }
+
+  const handleNewChat = () => {
+    setCurrentChat()
+  }
 
   return (
     <div className={classes["history-container"]}>
-      <Button title="+ New chat" type="button" styles={"btn chat-panel"} />
+      <Button onClick={handleNewChat} title="+ New chat" type="button" styles={"btn chat-panel"} />
       <div>
-        {DUMMY_CHATS.map((conv, index) => (
-          <div className={classes["chat-container"]} key={index}>
+        {chats && chats.map((chat, index) => (
+          <div className={classes["chat-container"]} onClick={(e) => navigateToChat(e, chat.id)} key={index}>
             <BsChatRightDots />
             <div className={classes.chat}>
-              {conv.text}
+              {chat.chatTitle}
               <div className={classes["text-fade"]}></div>
             </div>
           </div>
