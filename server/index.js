@@ -3,7 +3,6 @@ import cors from "cors"
 import dotenv from "dotenv"
 import { Configuration, OpenAIApi } from "openai"
 import openAiRoutes from "./routes/openaiAPI.js"
-// import { generateMsg } from "./src/controllers/chat-controller.js"
 
 // APP CONFIGURATION //
 dotenv.config()

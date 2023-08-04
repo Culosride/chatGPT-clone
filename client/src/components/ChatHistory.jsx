@@ -12,7 +12,7 @@ const DUMMY_CHATS = [
 const ChatsHistory = () => {
   return (
     <div className={classes["history-container"]}>
-      <Button title="+ New chat" />
+      <Button title="+ New chat" type="button" styles={"btn chat-panel"} />
       <div>
         {DUMMY_CHATS.map((conv, index) => (
           <div className={classes["chat-container"]} key={index}>

@@ -1,26 +1,27 @@
 import classes from "./inputForm.module.css";
+import Button from "./Button";
 
-const InputForm = (props) => {
+const InputForm = ({ handleChange, handleSubmit, msg }) => {
+  const msgValidation = msg.split(" ").join("").length > 0;
 
   return (
     <form
-      onSubmit={props.handleSubmit}
+      onSubmit={handleSubmit}
       method="post"
       className={classes["input-container"]}
     >
       <textarea
         placeholder="Let's chat"
         name="msg"
-        value={props.msg}
-        onChange={props.handleChange}
+        value={msg}
+        onChange={handleChange}
         className={classes["user-input"]}
         onFocus={(e) => (e.target.placeholder = "")}
         onBlur={(e) => (e.target.placeholder = "Let's chat")}
       />
-      <button type="submit" className={classes.btn}>
-        {" "}
-        &gt;{" "}
-      </button>
+      {msgValidation && (
+        <Button title="&gt;" type="submit" styles={"btn user-input"} />
+      )}
     </form>
   );
 };
