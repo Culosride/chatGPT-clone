@@ -1,0 +1,7 @@
+/* Style for the container */
+.container {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  background-color: rgb(90 85 94);
+  color: rgb(220, 220, 220);
+}

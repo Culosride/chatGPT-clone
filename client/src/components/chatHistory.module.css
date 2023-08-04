@@ -1,0 +1,56 @@
+.history-container {
+  height: 100vh;
+  background-color: rgb(31, 31, 31);
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.history-container button {
+  padding: 8px 24px;
+  font-size: 16px;
+}
+
+.chat-container {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  padding: 5px 24px;
+  color: rgb(93, 0, 255);
+  align-items: baseline;
+}
+
+.chat-container:hover .text-fade {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgb(40 26 64)
+    ); /* fades to history-container bg-color */
+}
+
+.chat-container:hover {
+  background-color: rgb(40 26 64);
+}
+
+.chat {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 8px 0;
+  position: relative;
+}
+
+.text-fade {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgb(31, 31, 31)
+    ); /* fades to history-container bg-color */
+}
+
+svg {
+  width: 2rem;
+}

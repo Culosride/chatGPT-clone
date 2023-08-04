@@ -1,0 +1,12 @@
+.btn {
+  background-color: transparent;
+  color: rgb(93, 0, 255);
+  border: 0.1px solid rgb(93, 0, 255);
+  text-align: left;
+  margin: 16px;
+  font-family: monospace;
+}
+
+.btn:hover {
+  background-color: rgba(93, 0, 255, 0.15);
+}
