@@ -11,51 +11,56 @@ const chatReducer = (state, action) => {
   if (action.type === "SET_SUB_MSG") {
     return {
       ...state,
-      isSubmittingMsg: action.payload
-    }
+      isSubmittingMsg: action.payload,
+    };
   }
 
   if (action.type === "NEW_MSG") {
     const existingChat = state.currentChat?.id;
 
+
+    // REGISTERS USER MESSAGE
+    if (action.payload.role === "user"  ) {
+      const updatedMessages = [...state.currentChat.messages, action.payload];
+      return {
+        ...state,
+        currentChat: { ...state.currentChat, messages: updatedMessages },
+      };
+    }
+
+    // REGISTERS OPENAI RESPONSE IN NEW CHAT
     if (!existingChat) {
-      const chatTitle = action.payload.chatTitle.replace(/"/g, '');
+      console.log('New chat' )
+      const chatTitle = action.payload.chatTitle.replace(/"/g, "");
       const chatId = action.payload.id;
 
       const newCurrentChat = {
         chatTitle,
         id: chatId,
-        messages: [
-          {
-            role: "user",
-            content: action.payload.userInput,
-          },
-          action.payload.newMessage,
-        ],
+        messages: [...state.currentChat.messages, action.payload.newMessage],
       };
 
       return {
         ...state,
-        chats: state.chats.concat(newCurrentChat),
+        chats: [...state.chats, newCurrentChat],
         currentChat: newCurrentChat,
       };
     } else {
+      // REGISTERS OPENAI RESPONSE IN EXISTING CHAT
+      console.log('existing chat')
+
       const updatedCurrentChat = {
         ...state.currentChat,
-        messages: [
-          ...state.currentChat.messages,
-          { role: "user", content: action.payload.userInput },
-          action.payload.newMessage,
-        ],
+        messages: [...state.currentChat.messages, action.payload.newMessage],
       };
 
       const updatedChats = state.chats.filter(
-        (chat) => chat.id !== action.payload.id
+        (chat) => chat.id !== state.currentChat.id
       );
 
       return {
         ...state,
-        chats: updatedChats,
+        chats: [...updatedChats, updatedCurrentChat],
         currentChat: updatedCurrentChat,
       };
     }
@@ -63,6 +68,7 @@ const chatReducer = (state, action) => {
 
   if (action.type === "SET_CURRENT_CHAT") {
     const chat = state.chats.find((chat) => chat.id === action.payload);
+    
     if (chat) {
       return {
         ...state,
@@ -100,7 +106,7 @@ export const ChatProvider = (props) => {
     isSubmittingMsg: state.isSubmittingMsg,
     newMessage,
     setCurrentChat,
-    setIsSubmittingMsg
+    setIsSubmittingMsg,
   };
 
   return (

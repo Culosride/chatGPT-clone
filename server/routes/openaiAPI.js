@@ -21,7 +21,6 @@ export const generateMsg = async (req, res) => {
     model: "gpt-3.5-turbo",
     messages: [
       { role: "system", content: `Come up with a short title for a chat starting with this message: ${req.body.msg}` },
-      // { role: "system", content: "Don't wrap your message around quotation marks " },
       { role: "user", content: req.body.msg },
     ],
     max_tokens: 20,
@@ -35,7 +34,6 @@ export const generateMsg = async (req, res) => {
 };
 
 // ROUTES //
-
 router.post("/test", async (req, res) => {
 
   try {

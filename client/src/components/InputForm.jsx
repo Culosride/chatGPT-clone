@@ -8,6 +8,7 @@ import { PiHourglassSimpleLight } from "react-icons/pi";
 const InputForm = ({ handleChange, handleSubmit, msg, inputIsValid }) => {
   const { isSubmittingMsg } = useContext(ChatContext);
   const btnContent = isSubmittingMsg ? <PiHourglassSimpleLight /> : <VscSend /> ;
+  const btnStyles = isSubmittingMsg ? "btn user-input submitting" : "btn user-input"
 
   return (
     <form
@@ -25,7 +26,7 @@ const InputForm = ({ handleChange, handleSubmit, msg, inputIsValid }) => {
         onBlur={(e) => (e.target.placeholder = "Let's chat")}
       />
       {inputIsValid && (
-        <Button content={btnContent} type="submit" styles={"btn user-input"} />
+        <Button content={btnContent} type="submit" styles={btnStyles} />
       )}
     </form>
   );

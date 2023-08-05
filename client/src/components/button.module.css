@@ -24,3 +24,7 @@
   border-left: 0;
   margin: 0;
 }
+
+.submitting {
+  background-color: rgba(93, 0, 255, 0.15);
+}
