@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Button from "./Button";
-import classes from "./chatHistory.module.css";
+import classes from "./chatsHistory.module.css";
 import { BsChatRightDots, BsChatRightDotsFill } from "react-icons/bs";
 import ChatContext from "../store/chat-context";
 

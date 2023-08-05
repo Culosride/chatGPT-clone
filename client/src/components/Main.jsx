@@ -1,4 +1,4 @@
-import HistoryPanel from "./ChatHistory";
+import ChatsHistory from "./ChatsHistory";
 import Chat from "./Chat";
 import classes from "./main.module.css";
 
@@ -6,7 +6,7 @@ function Main() {
 
   return (
     <main className={classes.container}>
-      <HistoryPanel />
+      <ChatsHistory />
       <Chat />
     </main>
   );
