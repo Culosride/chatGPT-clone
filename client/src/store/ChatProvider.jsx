@@ -2,7 +2,24 @@ import { useReducer } from "react";
 import ChatContext from "./chat-context.js";
 
 const initialChatState = {
-  chats: [],
+  chats: [
+    {
+      chatTitle: "Prova",
+      id: "c1",
+      messages: [
+        { role: "user", content: "Prova prova" },
+        { role: "assitant", content: "Prova prova" },
+      ],
+    },
+    {
+      chatTitle: "Prova titolo lungo lungo lungo",
+      id: "c2",
+      messages: [
+        { role: "user", content: "Prova prova" },
+        { role: "assitant", content: "Prova prova" },
+      ],
+    },
+  ],
   isSubmittingMsg: false,
   currentChat: { chatTitle: "New chat", messages: [] },
 };
@@ -18,9 +35,8 @@ const chatReducer = (state, action) => {
   if (action.type === "NEW_MSG") {
     const existingChat = state.currentChat?.id;
 
-
     // REGISTERS USER MESSAGE
-    if (action.payload.role === "user"  ) {
+    if (action.payload.role === "user") {
       const updatedMessages = [...state.currentChat.messages, action.payload];
       return {
         ...state,
@@ -30,7 +46,7 @@ const chatReducer = (state, action) => {
 
     // REGISTERS OPENAI RESPONSE IN NEW CHAT
     if (!existingChat) {
-      console.log('New chat' )
+      console.log("New chat");
       const chatTitle = action.payload.chatTitle.replace(/"/g, "");
       const chatId = action.payload.id;
 
@@ -47,7 +63,7 @@ const chatReducer = (state, action) => {
       };
     } else {
       // REGISTERS OPENAI RESPONSE IN EXISTING CHAT
-      console.log('existing chat')
+      console.log("existing chat");
 
       const updatedCurrentChat = {
         ...state.currentChat,
@@ -85,14 +101,34 @@ const chatReducer = (state, action) => {
   if (action.type === "DEL_CHAT") {
     const chatToDelete = state.chats.find((chat) => chat.id === action.payload);
 
-    if(chatToDelete) {
+    if (chatToDelete) {
       const updatedChats = state.chats.filter(
         (chat) => chat.id !== chatToDelete.id
       );
       return {
         ...state,
-        chats: updatedChats
-      }
+        chats: updatedChats,
+      };
+    }
+  }
+
+  if (action.type === "EDIT_TITLE") {
+    const chatToEdit = state.chats.find(
+      (chat) => chat.id === action.payload.id
+    );
+
+    if (chatToEdit) {
+      chatToEdit.chatTitle = action.payload.newTitle;
+
+      const updatedChats = state.chats.filter(
+        (chat) => chat.id !== chatToEdit.id
+      );
+
+      return {
+        ...state,
+        chats: [...updatedChats, chatToEdit],
+        currentChat: chatToEdit,
+      };
     }
   }
 
@@ -118,6 +154,10 @@ export const ChatProvider = (props) => {
     dispatch({ type: "DEL_CHAT", payload: chatId });
   };
 
+  const editChatTitle = (chatId) => {
+    dispatch({ type: "EDIT_TITLE", payload: chatId });
+  };
+
   const chatContext = {
     chats: state.chats,
     currentChat: state.currentChat,
@@ -126,6 +166,7 @@ export const ChatProvider = (props) => {
     setCurrentChat,
     setIsSubmittingMsg,
     deleteChat,
+    editChatTitle,
   };
 
   return (

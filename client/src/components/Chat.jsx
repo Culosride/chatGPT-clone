@@ -6,7 +6,8 @@ import ChatContext from "../store/chat-context";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Chat = () => {
-  const { currentChat, newMessage, setIsSubmittingMsg, isSubmittingMsg } = useContext(ChatContext);
+  const { currentChat, newMessage, setIsSubmittingMsg, isSubmittingMsg } =
+    useContext(ChatContext);
   const [userInput, setUserInput] = useState("");
 
   const msgValidation = userInput.split(" ").join("").length > 0;
@@ -18,16 +19,15 @@ const Chat = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!msgValidation || isSubmittingMsg ) {
+    if (!msgValidation || isSubmittingMsg) {
       return;
     }
 
     try {
       if (!isSubmittingMsg) {
-
         // DISPLAYS USER MESSAGE FIRST
         setIsSubmittingMsg(true);
-        newMessage({content: userInput, role: "user"})
+        newMessage({ content: userInput, role: "user" });
 
         // SENDS REQUEST FOR USER INPUT MESSAGE
         const result = await fetch(`${BASE_URL}/openai/completion`, {
@@ -68,9 +68,11 @@ const Chat = () => {
             <div className={classes.text}>{message.content}</div>
           </div>
         ))}
-        {isSubmittingMsg && <div className={`${classes["chat-message"]} ${classes.assistant}`}>
+        {isSubmittingMsg && (
+          <div className={`${classes["chat-message"]} ${classes.assistant}`}>
             <div className={classes.text}>...</div>
-          </div>}
+          </div>
+        )}
       </div>
       <InputForm
         inputIsValid={msgValidation}

@@ -4,7 +4,6 @@ const initialState = {
   chats: [],
   currentChat: {},
   isSubmittingMsg: false,
-  newMessage: () => {},
 };
 
 const ChatContext = React.createContext(initialState);

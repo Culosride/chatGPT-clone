@@ -27,20 +27,14 @@
   margin: 0;
 }
 
-.submitting {
-  background-color: rgba(93, 0, 255, 0.15);
-}
-
-.delete,
-.edit {
+.actions {
   border: none;
   padding: 0;
   align-self: center;
-  /* background-color: rgb(31, 31, 31); */
+  background-color: transparent
 }
 
-.delete:hover,
-.edit:hover {
+.actions:hover {
   background-color: transparent;
   color: white;
 }
