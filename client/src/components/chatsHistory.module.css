@@ -7,17 +7,13 @@
   /* border-right:  2px solid rgb(93, 0, 255); */
 }
 
-.history-container button {
-  padding: 8px 24px;
-  font-size: 16px;
-}
-
 .chat-container {
   display: grid;
   grid-template-columns: 1fr 9fr;
   padding: 5px 24px;
   color: rgb(93, 0, 255);
   align-items: baseline;
+  position: relative;
 }
 
 .chat-container:hover .text-fade {
@@ -28,11 +24,12 @@
     ); /* fades to history-container bg-color */
 }
 
-.chat-container:hover {
+.chat-container:hover, .chat-container:hover .chat-actions {
   background-color: rgb(40 26 64);
 }
 
 .chat {
+  display: flex;
   overflow: hidden;
   white-space: nowrap;
   margin: 8px 0;
@@ -40,11 +37,8 @@
 }
 
 .text-fade {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 30px;
-  height: 100%;
+  width: 12px;
+  /* height: 100px; */
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
@@ -54,4 +48,15 @@
 
 svg {
   width: 2rem;
+}
+
+.chat-menu {
+  display: flex;
+  position: absolute;
+  right: 0;
+  height: 100%;
+}
+
+.chat-actions {
+  background-color: rgb(31, 31, 31)
 }

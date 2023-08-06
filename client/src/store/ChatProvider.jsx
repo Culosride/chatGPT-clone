@@ -68,7 +68,7 @@ const chatReducer = (state, action) => {
 
   if (action.type === "SET_CURRENT_CHAT") {
     const chat = state.chats.find((chat) => chat.id === action.payload);
-    
+
     if (chat) {
       return {
         ...state,
@@ -79,6 +79,20 @@ const chatReducer = (state, action) => {
         ...state,
         currentChat: { chatTitle: "New chat", messages: [] },
       };
+    }
+  }
+
+  if (action.type === "DEL_CHAT") {
+    const chatToDelete = state.chats.find((chat) => chat.id === action.payload);
+
+    if(chatToDelete) {
+      const updatedChats = state.chats.filter(
+        (chat) => chat.id !== chatToDelete.id
+      );
+      return {
+        ...state,
+        chats: updatedChats
+      }
     }
   }
 
@@ -100,6 +114,10 @@ export const ChatProvider = (props) => {
     dispatch({ type: "SET_CURRENT_CHAT", payload: chatId });
   };
 
+  const deleteChat = (chatId) => {
+    dispatch({ type: "DEL_CHAT", payload: chatId });
+  };
+
   const chatContext = {
     chats: state.chats,
     currentChat: state.currentChat,
@@ -107,6 +125,7 @@ export const ChatProvider = (props) => {
     newMessage,
     setCurrentChat,
     setIsSubmittingMsg,
+    deleteChat,
   };
 
   return (

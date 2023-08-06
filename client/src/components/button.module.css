@@ -3,6 +3,8 @@
   color: rgb(93, 0, 255);
   border: 0.1px solid rgb(93, 0, 255);
   font-family: monospace;
+  padding: 8px 24px;
+  font-size: 16px;
 }
 
 .btn:hover {
@@ -27,4 +29,18 @@
 
 .submitting {
   background-color: rgba(93, 0, 255, 0.15);
+}
+
+.delete,
+.edit {
+  border: none;
+  padding: 0;
+  align-self: center;
+  /* background-color: rgb(31, 31, 31); */
+}
+
+.delete:hover,
+.edit:hover {
+  background-color: transparent;
+  color: white;
 }
