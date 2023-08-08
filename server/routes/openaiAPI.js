@@ -34,18 +34,6 @@ export const generateMsg = async (req, res) => {
 };
 
 // ROUTES //
-router.post("/test", async (req, res) => {
-
-  try {
-    const { msg } = req.body;
-
-    res.status(200).json({ msg });
-  } catch (error) {
-    console.log("error", error);
-    res.status(500).json({ error: message.error });
-  }
-});
-
 router.post("/completion", generateMsg);
 
 export default router;

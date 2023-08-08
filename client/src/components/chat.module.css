@@ -1,7 +1,15 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
 .chat-message {
   padding: 24px 10px;
-  width: inherit;
-  text-align: center;
+  /* width: inherit;
+  text-align: center; */
 }
 
 .chat-message.user {
@@ -13,29 +21,14 @@
   color: rgb(220, 220, 220);
 }
 
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  position: relative;
-}
-
 .messages-container {
-  flex: 1;
+  /* flex: 1; */
   overflow-y: auto;
-}
-
-.user-input:focus-visible {
-  border: 1px solid #ccc;
-  border-radius: 0;
-  outline-offset: unset;
-  outline: unset;
 }
 
 .text {
   max-width: 50%;
   margin: 0 auto;
-  text-align: left;
 }
 
 .banner {

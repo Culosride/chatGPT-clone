@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import classes from "./chat.module.css";
 import InputForm from "./InputForm";
 import ChatContext from "../store/chat-context";
@@ -9,8 +9,12 @@ const Chat = () => {
   const { currentChat, newMessage, setIsSubmittingMsg, isSubmittingMsg } =
     useContext(ChatContext);
   const [userInput, setUserInput] = useState("");
-
+  const dummyDiv = useRef(null);
   const msgValidation = userInput.split(" ").join("").length > 0;
+
+  useEffect(() => {
+    dummyDiv.current?.scrollIntoView();
+  }, [currentChat]);
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
@@ -50,6 +54,7 @@ const Chat = () => {
     } catch (error) {
       console.log(error);
     }
+
     setIsSubmittingMsg(false);
     setUserInput("");
   };
@@ -73,6 +78,7 @@ const Chat = () => {
             <div className={classes.text}>...</div>
           </div>
         )}
+        <div ref={dummyDiv}></div>
       </div>
       <InputForm
         inputIsValid={msgValidation}
