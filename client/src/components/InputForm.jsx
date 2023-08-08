@@ -32,6 +32,7 @@ const InputForm = ({ handleChange, handleSubmit, msg, inputIsValid }) => {
     >
       <div ref={inputContainer} className={classes["input-container"]}>
         <textarea
+          spellCheck={false}
           ref={textAreaRef}
           rows="1"
           onInput={handleTextArea}

@@ -8,8 +8,7 @@
 
 .chat-message {
   padding: 24px 10px;
-  /* width: inherit;
-  text-align: center; */
+  word-break:break-word;
 }
 
 .chat-message.user {
@@ -38,4 +37,8 @@
   text-align: center;
   padding: 25px;
   font-size: 20px;
+}
+
+.dummy-div {
+  height: 100px;
 }

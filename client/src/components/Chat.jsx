@@ -78,7 +78,7 @@ const Chat = () => {
             <div className={classes.text}>...</div>
           </div>
         )}
-        <div ref={dummyDiv}></div>
+        <div ref={dummyDiv} className={classes["dummy-div"]}></div>
       </div>
       <InputForm
         inputIsValid={msgValidation}

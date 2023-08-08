@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import ChatContext from "./chat-context.js";
 
 const initialChatState = {
@@ -8,6 +8,7 @@ const initialChatState = {
       id: "c1",
       messages: [
         { role: "user", content: "Prova prova" },
+        { role: "assitant", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam sapien. Fusce vitae diam convallis, suscipit augue vitae, porttitor massa. Nulla augue purus, varius ut metus vitae, gravida fermentum magna. In malesuada malesuada ante, at sodales orci blandit sit amet. Nam eu purus at nibh pharetra lacinia sit amet auctor enim. Mauris commodo tortor elit, ac varius neque eleifend non. Pellentesque ut odio commodo ipsum tristique faucibus in dictum diam. Sed rutrum varius odio ac rutrum. Etiam faucibus tempus ipsum, id commodo dolor mattis quis. Aenean tincidunt elit magna, quis rutrum ante molestie sed. Aenean eu magna commodo odio volutpat faucibus." },
         { role: "assitant", content: "Prova prova" },
         { role: "assitant", content: "Prova prova" },
         { role: "assitant", content: "Prova prova" },
@@ -23,43 +24,7 @@ const initialChatState = {
         { role: "assitant", content: "Prova prova" },
         { role: "assitant", content: "Prova prova" },
         { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
-        { role: "assitant", content: "Prova prova" },
+
       ],
     },
     {
@@ -189,9 +154,9 @@ const chatReducer = (state, action) => {
 export const ChatProvider = (props) => {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
 
-  const newMessage = (data) => {
+  const newMessage = useCallback((data) => {
     dispatch({ type: "NEW_MSG", payload: data });
-  };
+  }, []);
 
   const setIsSubmittingMsg = (isSubmittingMsg) => {
     dispatch({ type: "SET_SUB_MSG", payload: isSubmittingMsg });
