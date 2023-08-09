@@ -20,9 +20,12 @@ const Chat = () => {
     setUserInput(e.target.value);
   };
 
+  const getTextAreaRef = (textAreaRef) => {
+    textAreaRef.current.focus()
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!msgValidation || isSubmittingMsg) {
       return;
     }
@@ -50,6 +53,7 @@ const Chat = () => {
           newMessage: data.message,
           chatTitle: data.chatTitle,
           id: data.id,
+          created: data.created,
         });
       }
     } catch (error) {
@@ -57,6 +61,11 @@ const Chat = () => {
     }
 
     setIsSubmittingMsg(false);
+  };
+
+  const handleEnter = (e) => {
+    // e.preventDefault()
+    e.key === "Enter" && handleSubmit(e);
   };
 
   return (
@@ -81,6 +90,8 @@ const Chat = () => {
         <div ref={dummyDiv} className={classes["dummy-div"]}></div>
       </div>
       <InputForm
+        getTextAreaRef={getTextAreaRef}
+        handleEnter={handleEnter}
         inputIsValid={msgValidation}
         handleSubmit={handleSubmit}
         msg={userInput}

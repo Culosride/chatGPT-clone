@@ -6,6 +6,7 @@ const initialChatState = {
     {
       chatTitle: "Prova",
       id: "c1",
+      created: 0,
       messages: [
         { role: "user", content: "Prova prova" },
         { role: "assitant", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam sapien. Fusce vitae diam convallis, suscipit augue vitae, porttitor massa. Nulla augue purus, varius ut metus vitae, gravida fermentum magna. In malesuada malesuada ante, at sodales orci blandit sit amet. Nam eu purus at nibh pharetra lacinia sit amet auctor enim. Mauris commodo tortor elit, ac varius neque eleifend non. Pellentesque ut odio commodo ipsum tristique faucibus in dictum diam. Sed rutrum varius odio ac rutrum. Etiam faucibus tempus ipsum, id commodo dolor mattis quis. Aenean tincidunt elit magna, quis rutrum ante molestie sed. Aenean eu magna commodo odio volutpat faucibus." },
@@ -30,6 +31,7 @@ const initialChatState = {
     {
       chatTitle: "Prova titolo lungo lungo lungo",
       id: "c2",
+      created: 1,
       messages: [
         { role: "user", content: "Prova prova" },
         { role: "assitant", content: "Prova prova" },
@@ -63,13 +65,15 @@ const chatReducer = (state, action) => {
     // REGISTERS OPENAI RESPONSE IN NEW CHAT
     if (!existingChat) {
       console.log("New chat");
+
+      const { id, created, newMessage } = action.payload
       const chatTitle = action.payload.chatTitle.replace(/"/g, "");
-      const chatId = action.payload.id;
 
       const newCurrentChat = {
         chatTitle,
-        id: chatId,
-        messages: [...state.currentChat.messages, action.payload.newMessage],
+        id,
+        created,
+        messages: [...state.currentChat.messages, newMessage],
       };
 
       return {
@@ -129,12 +133,14 @@ const chatReducer = (state, action) => {
   }
 
   if (action.type === "EDIT_TITLE") {
+
+    const { id, newTitle } = action.payload
     const chatToEdit = state.chats.find(
-      (chat) => chat.id === action.payload.id
+      (chat) => chat.id === id
     );
 
     if (chatToEdit) {
-      chatToEdit.chatTitle = action.payload.newTitle;
+      chatToEdit.chatTitle = newTitle;
 
       const updatedChats = state.chats.filter(
         (chat) => chat.id !== chatToEdit.id

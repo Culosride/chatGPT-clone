@@ -71,6 +71,70 @@ const ChatsHistory = () => {
     }
   };
 
+  const orderedChats = chats.sort((a, b)=> a.created - b.created)
+
+  const chatList = orderedChats.map((chat, index) => (
+    <div className={classes["chat-container"]} onClick={() => navigateToChat(chat.id)} key={index}>
+      {chat.id === currentChatID ? (
+        <BsChatRightDotsFill />
+      ) : (
+        <BsChatRightDots />
+      )}
+      <div style={{ padding: isEditing && chat.id === currentChatID && 0 }} className={classes.chat}>
+        {isEditing && chat.id === currentChatID ? (
+          <input
+            autoFocus
+            onBlur={() => setIsEditing(false)}
+            className={classes["title-input"]}
+            type="text"
+            onKeyDown={handleKeyDown}
+            value={newChatTitle}
+            onChange={handleTitleChange}
+          >
+            {chat.title}
+          </input>
+        ) : (
+          chat.chatTitle
+        )}
+        <div className={classes["chat-menu"]}>
+          {isEditing && chat.id === currentChatID ? (
+            ""
+          ) : (
+            <div className={classes["text-fade"]}></div>
+          )}
+          {!isEditing && chat.id === currentChatID && (
+            <div className={classes["chat-actions"]}>
+              <Button onClick={handleEdit} styles="btn actions">
+                <AiOutlineEdit />
+              </Button>
+              <Button onClick={handleDelete} styles="btn actions">
+                <AiOutlineDelete />
+              </Button>
+            </div>
+          )}
+          {isEditing && chat.id === currentChatID && (
+            <div className={classes["chat-actions"]}>
+              <Button
+                type="button"
+                onMouseDown={submitEdit}
+                styles="btn actions"
+              >
+                <BsCheckLg />
+              </Button>
+              <Button
+                type="button"
+                onMouseDown={cancelEdit}
+                styles="btn actions"
+              >
+                <MdOutlineClose />
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  ))
+
   return (
     <div className={classes["history-container"]}>
       <Button
@@ -81,75 +145,8 @@ const ChatsHistory = () => {
         + New chat
       </Button>
       <div>
-        {chats &&
-          chats.map((chat, index) => (
-            <div
-              className={classes["chat-container"]}
-              onClick={() => navigateToChat(chat.id)}
-              key={index}
-            >
-              {chat.id === currentChatID ? (
-                <BsChatRightDotsFill />
-              ) : (
-                <BsChatRightDots />
-              )}
-              <div
-                style={{ padding: isEditing && chat.id === currentChatID && 0 }}
-                className={classes.chat}
-              >
-                {isEditing && chat.id === currentChatID ? (
-                  <input
-                    autoFocus
-                    onBlur={() => setIsEditing(false)}
-                    className={classes["title-input"]}
-                    type="text"
-                    onKeyDown={handleKeyDown}
-                    value={newChatTitle}
-                    onChange={handleTitleChange}
-                  >
-                    {chat.title}
-                  </input>
-                ) : (
-                  chat.chatTitle
-                )}
-                <div className={classes["chat-menu"]}>
-                  {isEditing && chat.id === currentChatID ? (
-                    ""
-                  ) : (
-                    <div className={classes["text-fade"]}></div>
-                  )}
-                  {!isEditing && chat.id === currentChatID && (
-                    <div className={classes["chat-actions"]}>
-                      <Button onClick={handleEdit} styles="btn actions">
-                        <AiOutlineEdit />
-                      </Button>
-                      <Button onClick={handleDelete} styles="btn actions">
-                        <AiOutlineDelete />
-                      </Button>
-                    </div>
-                  )}
-                  {isEditing && chat.id === currentChatID && (
-                    <div className={classes["chat-actions"]}>
-                      <Button
-                        type="button"
-                        onMouseDown={submitEdit}
-                        styles="btn actions"
-                      >
-                        <BsCheckLg />
-                      </Button>
-                      <Button
-                        type="button"
-                        onMouseDown={cancelEdit}
-                        styles="btn actions"
-                      >
-                        <MdOutlineClose />
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+        {chats && chatList}
+
       </div>
     </div>
   );

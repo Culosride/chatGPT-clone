@@ -14,7 +14,7 @@ export const generateMsg = async (req, res) => {
       { role: "system", content: "You are a helpful assistant." },
       { role: "user", content: req.body.msg },
     ],
-    max_tokens: 100,
+    max_tokens: 200,
   });
 
   const chatTitle = await openai.createChatCompletion({
@@ -30,6 +30,7 @@ export const generateMsg = async (req, res) => {
     message: completion.data.choices[0].message,
     id: completion.data.id,
     chatTitle: chatTitle.data.choices[0].message.content,
+    created: completion.data.created
   });
 };
 
