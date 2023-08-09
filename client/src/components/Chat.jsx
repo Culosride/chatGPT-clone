@@ -32,6 +32,7 @@ const Chat = () => {
         // DISPLAYS USER MESSAGE FIRST
         setIsSubmittingMsg(true);
         newMessage({ content: userInput, role: "user" });
+        setUserInput("");
 
         // SENDS REQUEST FOR USER INPUT MESSAGE
         const result = await fetch(`${BASE_URL}/openai/completion`, {
@@ -56,7 +57,6 @@ const Chat = () => {
     }
 
     setIsSubmittingMsg(false);
-    setUserInput("");
   };
 
   return (

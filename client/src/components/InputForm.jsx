@@ -18,11 +18,12 @@ const InputForm = ({ handleChange, handleSubmit, msg, inputIsValid }) => {
   };
 
   useEffect(() => {
+    handleTextArea()
     window.addEventListener("resize", handleTextArea);
     return () => {
       window.removeEventListener("resize", handleTextArea);
     };
-  }, []);
+  }, [msg]);
 
   return (
     <form

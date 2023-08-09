@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from "react";
+import { useReducer } from "react";
 import ChatContext from "./chat-context.js";
 
 const initialChatState = {
@@ -154,9 +154,9 @@ const chatReducer = (state, action) => {
 export const ChatProvider = (props) => {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
 
-  const newMessage = useCallback((data) => {
+  const newMessage = (data) => {
     dispatch({ type: "NEW_MSG", payload: data });
-  }, []);
+  }
 
   const setIsSubmittingMsg = (isSubmittingMsg) => {
     dispatch({ type: "SET_SUB_MSG", payload: isSubmittingMsg });

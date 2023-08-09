@@ -3,7 +3,7 @@ body {
   margin: 0;
   font-size: 14px;
   font-family: monospace;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 input {
