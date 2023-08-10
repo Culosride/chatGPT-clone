@@ -27,6 +27,7 @@ const ChatsHistory = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [newChatTitle, setNewChatTitle] = useState(currentChat.chatTitle);
   const currentChatID = currentChat.id;
+  const year = new Date().getFullYear()
 
   const navigateToChat = (id) => {
     !isSubmittingMsg && setCurrentChat(id);
@@ -69,18 +70,28 @@ const ChatsHistory = () => {
       submitEdit();
       setIsEditing(false);
     }
+    if (e.key === "Escape") {
+      setIsEditing(false);
+    }
   };
 
-  const orderedChats = chats.sort((a, b)=> a.created - b.created)
+  const orderedChats = chats.sort((a, b) => a.created - b.created);
 
   const chatList = orderedChats.map((chat, index) => (
-    <div className={classes["chat-container"]} onClick={() => navigateToChat(chat.id)} key={index}>
+    <div
+      className={classes["chat-container"]}
+      onClick={() => navigateToChat(chat.id)}
+      key={index}
+    >
       {chat.id === currentChatID ? (
         <BsChatRightDotsFill />
       ) : (
         <BsChatRightDots />
       )}
-      <div style={{ padding: isEditing && chat.id === currentChatID && 0 }} className={classes.chat}>
+      <div
+        style={{ padding: isEditing && chat.id === currentChatID && 0 }}
+        className={classes.chat}
+      >
         {isEditing && chat.id === currentChatID ? (
           <input
             autoFocus
@@ -133,7 +144,7 @@ const ChatsHistory = () => {
         </div>
       </div>
     </div>
-  ))
+  ));
 
   return (
     <div className={classes["history-container"]}>
@@ -144,10 +155,9 @@ const ChatsHistory = () => {
       >
         + New chat
       </Button>
-      <div>
-        {chats && chatList}
+      <div className={classes["chats-container"]}>{chats && chatList}</div>
 
-      </div>
+      <div className={classes.footer}>Culosride {year}</div>
     </div>
   );
 };

@@ -6,12 +6,19 @@
   font-size: 14px;
   width: 288px;
   min-width: 288px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.chats-container {
+  overflow-y: auto;
 }
 
 .chat-container {
   display: grid;
   grid-template-columns: 1fr 9fr;
-  padding: 5px 24px;
+  padding: 5px 20px;
   color: rgb(93, 0, 255);
   align-items: baseline;
   position: relative;
@@ -70,10 +77,19 @@
   padding: 0;
   max-inline-size: 75%;
   outline: none;
-  overflow: scroll;
   color: rgb(93, 0, 255);
   background-color: transparent;
   font-family: monospace;
+}
+
+.footer {
+  text-align: center;
+  background-color: rgb(31, 31, 31);
+  padding: 12px 0;
+  font-size: 12px;
+  color: rgb(93, 0, 255,0.5);
+  margin-top: auto;
+  border-top: 1px solid rgb(93, 0, 255,0.5);
 }
 
 @media (max-width: 600px) {

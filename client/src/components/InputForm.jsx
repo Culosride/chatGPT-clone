@@ -9,7 +9,6 @@ const InputForm = ({
   handleChange,
   handleSubmit,
   handleEnter,
-  getTextAreaRef,
   msg,
 }) => {
   const { isSubmittingMsg } = useContext(ChatContext);
@@ -18,22 +17,22 @@ const InputForm = ({
   const inputContainer = useRef();
   const textAreaRef = useRef();
 
-  const handleTextArea = () => {
-    inputContainer.current.style.height = "auto";
-    inputContainer.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-  };
-
   useEffect(() => {
-    handleTextArea();
     window.addEventListener("resize", handleTextArea);
     return () => {
       window.removeEventListener("resize", handleTextArea);
     };
-  }, [msg]);
+  }, []);
 
   useEffect(() => {
-    getTextAreaRef(textAreaRef);
-  }, [getTextAreaRef]);
+    handleTextArea();
+    textAreaRef?.current?.focus()
+  }, [msg]);
+
+  const handleTextArea = () => {
+    inputContainer.current.style.height = "auto";
+    inputContainer.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+  };
 
   return (
     <form
